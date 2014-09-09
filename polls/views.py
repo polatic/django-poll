@@ -37,13 +37,13 @@ def home(request):
 
 
 def dashboard(request):
-    questions = Question.objects.all()
+    questions = Question.objects.all().order_by('id')
 
     return render(request, "polls/dashboard.html", {'questions': questions})
 
 
 def thankyou(request):
-    questions = Question.objects.all()
+    questions = Question.objects.all().order_by('id')
     total = Choice.objects.count()
     return render(request, "polls/thankyou.html", {'questions': questions,
                                                    'total': total})
