@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}Realtime Polls{% endblock title %}
+
+{% block header %}
+<link href="{% static 'bootflat/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'bootflat/css/site.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'man.css' %}" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="{% static 'knockout-3.2.0.js' %}"></script>
+<script src="{% static 'chart.min.js' %}"></script>
+{% endblock header %}
+
+{% block content %}
+
+<div class="container">
+    <div class="span12">
+        <center>
+            <h4>Thank you for the vote </h4>
+            <hr/>
+            <h3><span id="counter">{{ total }}</span> Votes</h3>
+            <canvas id="canvas"></canvas>
+            <hr/>
+            <p>
+                Visit <a href="http://polatic.com">Polatic.com</a> <br/>For Enterprise &amp; Mobile Solution
+            </p>
+        </center>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var sockjs = new SockJS('http://vote.polatic.com:8080/example');
+
+    var canvas = document.getElementById('canvas'),
+    ctx = canvas.getContext('2d'),
+    startingData = {
+         labels : [{% for question in questions %}"{{ question.name}}",{% endfor %}],
+         datasets: [
+                {
+                fillColor: "rgba(166,206,127,0.7)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#000",
+                pointHighlightFill: "#000",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [{% for question in questions %}{{ question.counter }},{% endfor %}]
+                }
+        ]
+    };
+
+    sockjs.onopen = function() {
+        console.log("opened");
+    };
+
+    sockjs.onmessage = function(e) {
+        var input = e.data;
+        var arrayLength = input.split(",");
+        var total = 0;
+        for (var i = 0; i < arrayLength.length; i++) {
+            myLiveChart.datasets[0].points[i].value = arrayLength[i];
+            console.log("Key, val " + i + ", " + arrayLength[i]);
+            total += arrayLength[i];
+            //Do something
+        }
+        myLiveChart.update();
+        $("span#counter").html(total);
+    };
+
+    sockjs.onclose = function() {
+        console.log('Closing Connection.');
+    };
+
+    // Reduce the animation steps for demo clarity.
+    var myLiveChart = new Chart(ctx).Radar(startingData, {
+        //Boolean - Whether to show lines for each scale point
+        scaleShowLine : true,
+        // Boolean - Whether the scale should begin at zero
+        scaleBeginAtZero : true,
+        //String - Colour of the angle line
+        angleLineColor : "rgba(0,0,0,.1)",
+    
+        //Number - Pixel width of the angle line
+        angleLineWidth : 1,
+    
+        //String - Point label font declaration
+        pointLabelFontFamily : "'Arial'",
+    
+        //String - Point label font weight
+        pointLabelFontStyle : "bold",
+        //Number - Point label font size in pixels
+        pointLabelFontSize : 14,
+        //String - Point label font colour
+        pointLabelFontColor : "#666",
+        //Boolean - Whether to show a dot for each point
+        pointDot : true,
+        //Number - Radius of each point dot in pixels
+        pointDotRadius : 3,
+        //Number - Pixel width of point dot stroke
+        pointDotStrokeWidth : 1,
+        //Boolean - Whether to show a stroke for datasets
+        datasetStroke : true,
+        //Number - Pixel width of dataset stroke
+        datasetStrokeWidth : 2,
+        //Boolean - Whether to fill the dataset with a colour
+        datasetFill : true,
+    });
+
+</script>
+{% endblock content %}

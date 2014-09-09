@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}Realtime Polls{% endblock title %}
+{% block header %}
+<link href="{% static 'bootflat/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'bootflat/css/site.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+{% endblock header %}
+
+{% block content %}
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand"><img src="{% static 'img/logo.png' %}" alt="Get In The Ring" /></h3>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Choose your favourite startup</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="." method="POST" role="form">
+                            {% csrf_token %}
+                            <ul class="list-group">
+                                {% for question in questions %}
+                                <div class="radio">
+                                    <label for="{{ question.id }}">
+                                    <input id="{{ question.id }}" value="{{ question.id }}" name="question_id" checked="" type="radio">
+                                    {{ question.name }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <button type="submit" class="btn btn-primary btn-warning">Vote Now</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>
+                       Powered by &nbsp;&nbsp;<a href="http://polatic.com"><img src="{% static 'img/polatic.png' %}" alt="Polatic" /></a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock content%}
+
