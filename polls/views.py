@@ -7,9 +7,14 @@ from polls.models import Question, Choice
 from django.db.models import F
 from django.core.urlresolvers import reverse
 
+COOKIE = "VOTED"
+
 @csrf_exempt
 def home(request):
     questions = Question.objects.all().order_by('id')
+
+    if request.COOKIES.has_key(COOKIE):
+        return redirect(reverse('polls:thankyou'))
 
     if request.method == 'POST':
         question_id = request.POST['question_id']
@@ -30,6 +35,8 @@ def home(request):
             r = redis.StrictRedis()
             r.publish('my_channel', message)
             print message
+
+            response.set_cookie(COOKIE, 1)
 
         return redirect(reverse('polls:thankyou'))
 
