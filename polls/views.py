@@ -36,8 +36,6 @@ def home(request):
             r.publish('my_channel', message)
             print message
 
-            response.set_cookie(COOKIE, 1)
-
         return redirect(reverse('polls:thankyou'))
 
     return render(request, "polls/home.html", {'questions': questions})
@@ -52,8 +50,12 @@ def dashboard(request):
 def thankyou(request):
     questions = Question.objects.all().order_by('id')
     total = Choice.objects.count()
-    return render(request, "polls/thankyou.html", {'questions': questions,
+    
+    response = HttpResponse()
+    response = render(request, "polls/thankyou.html", {'questions': questions,
                                                    'total': total})
+    response.set_cookie(key=COOKIE, value=1)
+    return response
 
 
 def reset(request):
