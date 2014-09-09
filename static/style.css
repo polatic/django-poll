@@ -170,5 +170,5 @@ body {
 .margin-bottom-none { margin-bottom: 0; }
 .panel-body .radio label,.panel-body .checkbox label { display:block; }
 ul {margin-left:30px;font-size:16px;padding-bottom:10px;font-weight:bold;}
-ul li {padding:5px 0 5px 0}
+ul .radio {padding:2px 0 2px 0}
 .hideradio {display: none}
