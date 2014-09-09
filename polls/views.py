@@ -17,7 +17,8 @@ def home(request):
         try:
             question = Question.objects.get(id=question_id)
         except Question.DoesNotExist:
-            pass
+            return redirect(reverse('home'))
+
         else:
             Choice.objects.create(question=question, 
                                   user_agent=request.META.get('HTTP_USER_AGENT', ''))

@@ -34,7 +34,8 @@
                         <form action="." method="POST" role="form">
                             {% csrf_token %}
                             <ul class="list-group">
-                                {% for question in questions %}
+
+                               {% for question in questions %}
                                 <div class="radio">
                                     <label for="{{ question.id }}">
                                     <input id="{{ question.id }}" value="{{ question.id }}" name="question_id" checked="" type="radio">
@@ -42,6 +43,10 @@
                                     </label>
                                 </div>
                                 {% endfor %}
+                                
+                                <div class="hideradio">
+                                    <input id="9" value="9" name="question_id" checked="" type="radio">
+                                </div>
                             </ul>
                     </div>
                     <div class="panel-footer text-center">

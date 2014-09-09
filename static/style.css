@@ -30,9 +30,8 @@ body {
   background-color: #fff;
 }
 body {
-  color: #5A565A;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.2);
+  color: #383638;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -109,7 +108,7 @@ body {
  */
 
 .cover {
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 0px;
 }
 .cover .btn-lg {
   padding: 10px 20px;
@@ -159,3 +158,14 @@ body {
     width: 700px;
   }
 }
+
+.panel-body:not(.two-col) { padding:0px }
+.glyphicon { margin-right:5px; }
+.glyphicon-new-window { margin-left:5px; }
+.panel-body .radio,.panel-body .checkbox {margin-top: 0px;margin-bottom: 0px;}
+.panel-body .list-group {margin-bottom: 0;}
+.margin-bottom-none { margin-bottom: 0; }
+.panel-body .radio label,.panel-body .checkbox label { display:block; }
+ul {margin-left:30px;font-size:16px;padding-bottom:10px;font-weight:bold;}
+
+.hideradio {display: none}
