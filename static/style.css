@@ -53,7 +53,10 @@ body {
 }
 
 /* Padding for spacing */
+
+/* Padding for spacing */
 .inner {
+  padding: 20px;
 }
 
 
@@ -108,7 +111,7 @@ body {
  */
 
 .cover {
-  padding: 0 20px 20px 0px;
+  padding: 0 20px 0px 10px;
 }
 .cover .btn-lg {
   padding: 10px 20px;
@@ -122,7 +125,6 @@ body {
 
 .mastfoot {
   color: #5A565A; /* IE8 proofing */
- padding-left:10px;
 }
 
 
