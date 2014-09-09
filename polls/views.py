@@ -24,7 +24,7 @@ def home(request):
                                   user_agent=request.META.get('HTTP_USER_AGENT', ''))
 
             Question.objects.filter(id=question.id).update(counter=F('counter')+1)
-            messages = Question.objects.values_list('counter', flat=True)
+            messages = Question.objects.order_by('id').values_list('counter', flat=True)
             message = ",".join([str(i) for i in messages])
 
             r = redis.StrictRedis()

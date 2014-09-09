@@ -58,7 +58,7 @@
         for (var i = 0; i < arrayLength.length; i++) {
             myLiveChart.datasets[0].bars[i].value = arrayLength[i];
             console.log("Key, val " + i + ", " + arrayLength[i]);
-            total += arrayLength[i];
+            total += parseInt(arrayLength[i]);
             //Do something
         }
         myLiveChart.update();
