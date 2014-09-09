@@ -36,12 +36,12 @@
                             <ul class="list-group">
 
                                {% for question in questions %}
-                                <div class="radio">
-                                    <label for="{{ question.id }}">
-                                    <input id="{{ question.id }}" value="{{ question.id }}" name="question_id" checked="" type="radio">
-                                    {{ question.name }}
-                                    </label>
-                                </div>
+                                    <div class="radio">
+                                        <label for="{{ question.id }}">
+                                        <input id="{{ question.id }}" value="{{ question.id }}" name="question_id" checked="" type="radio">
+                                        {{ question.name }}
+                                        </label>
+                                    </div>
                                 {% endfor %}
                                 
                                 <div class="hideradio">

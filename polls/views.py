@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 
 @csrf_exempt
 def home(request):
-    questions = Question.objects.all()
+    questions = Question.objects.all().order_by('id')
 
     if request.method == 'POST':
         question_id = request.POST['question_id']
